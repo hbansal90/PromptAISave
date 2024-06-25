@@ -1,3 +1,4 @@
+// Directive to convert the default server side component into client side component: "use client"
 import Image from "next/image";
 
 export default function Home() {
