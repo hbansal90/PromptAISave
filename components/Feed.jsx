@@ -53,7 +53,7 @@ const Feed = () => {
       //setFilteredPosts(data)
     }
     fetchPosts()
-  }, [])
+  }, [posts, filteredPosts])
 
   return (
     <section className='feed'>
