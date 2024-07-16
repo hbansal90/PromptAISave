@@ -17,6 +17,7 @@ const EditPrompt = () => {
         const getPromptDetails = async () => {
             const response = await fetch(`/api/prompt/${promptId}`)
             const data = await response.json()
+            
             setPost({
                 prompt: data.prompt,
                 tag: data.tag
@@ -24,6 +25,7 @@ const EditPrompt = () => {
         }
         if(promptId)
          getPromptDetails()
+        
     },[promptId])
     const updatePrompt = async (e)=>{
         // to prevent default property: ie while submitting the form, by default it will reload the page, and in react and next, we like to reduce the number of reloads
@@ -32,6 +34,7 @@ const EditPrompt = () => {
         if(!promptId) return alert("Prompt ID not found")
 
         try{
+            //await new Promise(resolve => setTimeout(resolve, 10000));
             const response = await fetch(`/api/prompt/${promptId}`, {
                 method: 'PATCH',
                 body: JSON.stringify({
