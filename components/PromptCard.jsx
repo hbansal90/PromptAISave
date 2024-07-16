@@ -2,10 +2,11 @@
 import { useState } from "react"
 import Image from "next/image"
 import { useSession } from "next-auth/react"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"\
+import Link from "next/link"
 
 const PromptCard = ({ post, handletagClick, handleEdit, handleDelete }) => {
-  const { data: session} = useSession()
+  const { data: session } = useSession()
   const pathName = usePathname()
   const router = useRouter()
   const [copied, setCopied] = useState("")
@@ -15,11 +16,16 @@ const PromptCard = ({ post, handletagClick, handleEdit, handleDelete }) => {
     navigator.clipboard.writeText(post.prompt)
     setTimeout(() => setCopied(""), 3000)
   }
+  const handleProfileClick = () => {
+    if (post.creator?._id == session?.user.id) return router.push("/profile")
+    return router.push(`/profile/${post.creator?._id}?name=${post.creator?.username}`)
+  }
   return (
     <div className="prompt_card">
-      <div className="'flex justify-between items-start gap-5">
+      <div className="'flex justify-between items-start gap-3 ">
         <div
-          className='flex-1 flex  justify-between items-center cursor-pointer'
+          className='flex-1 flex-shrink flex  justify-between items-center cursor-pointer'
+          onClick={handleProfileClick}
         >
           <Image
             src={post.creator?.image}
@@ -32,7 +38,8 @@ const PromptCard = ({ post, handletagClick, handleEdit, handleDelete }) => {
             <h3 className="font-satoshi font-semibold text-gray-900">{post.creator?.username}</h3>
             <p className="font-inter text-sm text-gray-500 ">{post.creator?.email}</p>
           </div>
-          <div className="copy_btn ml-16" onClick={handleCopy}>
+
+          <div className="copy_btn ml-1" onClick={handleCopy}>
             <Image
               src={copied === post.prompt
                 ? "/assets/icons/tick.svg"
