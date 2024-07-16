@@ -8,7 +8,7 @@ const Form = (
     submitting,
     handleSubmit }) => {
   return (
-    <section className="w-full max-w-full float-start flex-col">
+    <section className="w-full max-w-full flex-start flex-col">
       <h1 className="head_text text-left">
         <span className="blue_gradient">{type} Post ✏️</span>
       </h1>
@@ -29,12 +29,13 @@ const Form = (
           />
         </label>
         <label>
-          <span className="font-satoshi font-semibold text-base text-gray-700"> Tag {` `} <span className="font-normal"> (#product, #webDevelopment, #idea)</span>
+          <span className="font-satoshi font-semibold text-base text-gray-700"> Tag {` `} <span className="font-normal"> ( #product, #webDevelopment, #idea, etc. )</span>
           </span>
           <input
             value={post.tag}
             onChange={(e)=> setPost({...post, tag: e.target.value})}
-            placeholder="#tag " required
+            type ='text'
+            placeholder="Tag " required
             className="form_input"
           />
         </label>

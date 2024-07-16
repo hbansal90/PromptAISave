@@ -3,7 +3,7 @@ import Link from "next/link"
 const Home = () => {
 
   return (
-    <main className="w-full flex-center flex-col">
+    <section className="w-full flex-center flex-col">
       <h1 className="head_text text-center">Save, Search and Share
         <br className="max-md:hidden" />
         <span className="blue_gradient text-center"> AI-powered Prompts</span>
@@ -18,7 +18,7 @@ const Home = () => {
         target="_blank"
         className="hover:cursor-pointer blue_gradient"
       > Harsh Bansal</a></h2>
-    </main>
+    </section>
   )
 }
 

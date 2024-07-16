@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import PromptCard from './PromptCard'
-import { usePathname } from "next/navigation";
+
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
     <div className='mt-16 prompt_layout'>
@@ -21,6 +21,8 @@ const Feed = () => {
   const [searchText, setSearchText] = useState('');
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
+  const [searchTimeout, setSearchTimeout] = useState(null);
+
 
   const filterPrompts = (searchTextToFilter) => {
     const regex = new RegExp(searchTextToFilter, "i");
@@ -33,8 +35,11 @@ const Feed = () => {
     );
   };
   const handleSearchChange = (e) => {
-    setSearchText(e.target.value)
-    setFilteredPosts(filterPrompts(e.target.value))
+      clearTimeout(searchTimeout);
+    setSearchText(e.target.value);
+    setSearchTimeout(
+      setTimeout(()=>{
+    setFilteredPosts(filterPrompts(e.target.value))}, 500))
   }
   const handleTagClick = (tagName) => {
     setSearchText(tagName);
@@ -45,7 +50,7 @@ const Feed = () => {
       const response = await fetch('/api/prompt')
       const data = await response.json()
       setPosts(data)
-      setFilteredPosts(data)
+      //setFilteredPosts(data)
     }
     fetchPosts()
   }, [])
@@ -57,16 +62,18 @@ const Feed = () => {
           type="text"
           placeholder="Search for a tag/username"
           value={searchText}
-          onChange={(e) => handleSearchChange(e)}
+          onChange={handleSearchChange}
           required
           className='search_input peer'
 
         />
       </form>
+      {searchText?(
       <PromptCardList
         data={filteredPosts}
         handleTagClick={handleTagClick}
-      />
+      />):
+      ( <PromptCardList data={posts} handleTagClick={handleTagClick} />)}
     </section>
   )
 }

@@ -22,7 +22,7 @@ const handler = NextAuth({
         session.user.id = sessionUser._id.toString();
         return session;
     },
-    async signIn({profile}){
+    async signIn({account, profile, user, credential}){
         try{
             //every nextjs route -> serverless route -> Lambda -> dynamoDB
             await connectToDB();
@@ -39,7 +39,7 @@ const handler = NextAuth({
             return true;
         }
         catch{
-            console.log(error);
+            console.log("Error checking if user exists: ", error.message);
             return false;
         }
 
