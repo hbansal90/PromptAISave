@@ -1,10 +1,15 @@
 import '@styles/globals.css';
 import Nav from '@components/Nav'
 import Provider from '@components/Provider';
-export const metadata = {
-    title: "PromptSaveAI",
-    description: 'Discover & Share AI Prompts',
 
+export const metadata = {
+    title: "PromptAISave",
+    description: 'Discover & Share AI Prompts',
+    type: "website",
+    authors: ['Harsh', 'Bansal'],
+    icons: {
+        icon: '/favicon.ico'
+    }
 
 
 }

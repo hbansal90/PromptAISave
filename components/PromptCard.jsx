@@ -25,7 +25,7 @@ const PromptCard = ({ post, handletagClick, handleEdit, handleDelete }) => {
       <div className="'flex justify-between items-start gap-3 ">
         <div
           className='flex-1 flex-shrink flex  justify-between items-center cursor-pointer'
-          onClick={handleProfileClick}
+
         >
           <Image
             src={post.creator?.image}
@@ -33,10 +33,11 @@ const PromptCard = ({ post, handletagClick, handleEdit, handleDelete }) => {
             width={40}
             height={40}
             className="rounded-full object-contain"
+            onClick={handleProfileClick}
           />
-          <div className="flex flex-col">
+          <div className="flex flex-col"  onClick={handleProfileClick} >
             <h3 className="font-satoshi font-semibold text-gray-900">{post.creator?.username}</h3>
-            <p className="font-inter text-sm text-gray-500 ">{post.creator?.email}</p>
+            <p className="font-inter text-sm text-gray-500 " >{post.creator?.email}</p>
           </div>
 
           <div className="copy_btn ml-1" onClick={handleCopy}>

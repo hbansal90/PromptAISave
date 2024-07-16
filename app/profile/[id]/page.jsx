@@ -1,31 +1,35 @@
+"use client";
 
-'use client'
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
-import Profile from '@components/Profile';
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
+import Profile from "@components/Profile";
 
-const MyProfile = ({params}) => {
+const MyProfile = ({ params }) => {
+    const { data: session } = useSession();
+    const [posts, setPosts] = useState([]);
+    const router = useRouter();
     const searchParams = useSearchParams();
-    const [posts, setPosts] = useState([])
+    const name = searchParams.get("name");
 
-    const username = searchParams.get("name")
     useEffect(() => {
         const fetchPosts = async () => {
-            const response = await fetch(`/api/users/${params?.id}/posts`)
-            const data = await response.json()
-            setPosts(data)
-        }
-        setTimeout(()=>{}, 1000000000000)
-        if(params?.id) fetchPosts()
-    }, [params.id])
+            const response = await fetch(`/api/users/${params.id}/posts`);
+            const data = await response.json();
+
+            setPosts(data);
+        };
+
+        if (session?.user.id) fetchPosts();
+    }, []);
+
     return (
-        
         <Profile
-            name={`${username}'s`}
-            desc={`Welcome to the ${username}'s profile. You can explore all of their prompts for various tags and copy them to your clipboard.`}
+            name={name}
+            desc={`Welcome to ${name}'s personalized profile page. Explore ${name}'s exceptional prompts and be inspired by the power of their imagination`}
             data={posts}
         />
-    )
-}
+    );
+};
 
 export default MyProfile;
