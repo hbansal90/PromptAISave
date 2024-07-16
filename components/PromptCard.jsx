@@ -2,7 +2,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { useSession } from "next-auth/react"
-import { usePathname, useRouter } from "next/navigation"\
+import { usePathname, useRouter } from "next/navigation"
 import Link from "next/link"
 
 const PromptCard = ({ post, handletagClick, handleEdit, handleDelete }) => {
