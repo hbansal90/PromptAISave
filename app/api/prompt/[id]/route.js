@@ -1,7 +1,7 @@
 // We will use Read, PATACH AND DELETE
 import { connectToDB } from '@utils/database'
 import Prompt from '@models/prompt';
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';
 export const GET = async (request, {params}) => {
     try {
         await connectToDB();

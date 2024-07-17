@@ -1,16 +1,65 @@
-import { Suspense } from "react";
-import dynamic from "next/dynamic";
+'use client'
+import { useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation';
+import Form from '@components/Form';
 
-const EditPrompt = dynamic(() => import("@components/EditPrompt"), {
-  suspense: true,
-});
+const EditPrompt = () => {
+    const router = useRouter();
+    const [submitting, setSubmitting] = useState(false)
+    const searchParams = useSearchParams()
+    const promptId = searchParams.get('id')
 
-const Page = () => {
-  return (
-    <Suspense>
-      <EditPrompt />
-    </Suspense>
-  );
-};
+    const [post, setPost] = useState({
+        prompt: "",
+        tag: "",
+    });
+    useEffect(() => {
+        const getPromptDetails = async () => {
+            const response = await fetch(`/api/prompt/${promptId}`)
+            const data = await response.json()
+            setPost({
+                prompt: data.prompt,
+                tag: data.tag
+            })
+        }
+        if (promptId)
+            getPromptDetails()
+    }, [promptId])
+    const updatePrompt = async (e) => {
+        // to prevent default property: ie while submitting the form, by default it will reload the page, and in react and next, we like to reduce the number of reloads
+        e.preventDefault();
+        setSubmitting(true);
+        if (!promptId) return alert("Prompt ID not found")
 
-export default Page;
+        try {
+            const response = await fetch(`/api/prompt/${promptId}`, {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    prompt: post.prompt,
+                    tag: post.tag
+                })
+            })
+            if (response.ok) {
+                router.push('/');
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+        finally {
+            setSubmitting(false);
+        }
+    }
+    return (
+        <Form
+            type="Edit"
+            post={post}
+            setPost={setPost}
+            submitting={submitting}
+            handleSubmit={updatePrompt}
+
+        />
+    )
+}
+
+export default EditPrompt

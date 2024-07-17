@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import PromptCard from './PromptCard'
-export const dynamic = 'force-dynamic';
+//export const dynamic = 'force-dynamic';
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
     <div className='mt-16 prompt_layout'>
@@ -53,7 +53,7 @@ const Feed = () => {
       //setFilteredPosts(data)
     }
     fetchPosts()
-  }, [posts, filteredPosts])
+  }, [])
 
   return (
     <section className='feed'>
