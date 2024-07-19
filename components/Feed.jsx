@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import PromptCard from './PromptCard'
+import { revalidatePath } from 'next/cache'
 //export const dynamic = 'force-dynamic';
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -47,7 +48,7 @@ const Feed = () => {
   }
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch('/api/prompt', {cache:'no-store'})
+      const response = await fetch('/api/prompt', {revalidate: 1})
       const data = await response.json()
       setPosts(data)
       //setFilteredPosts(data)
