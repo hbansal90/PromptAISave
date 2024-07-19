@@ -2,7 +2,8 @@
 import { useState, useEffect } from 'react'
 import PromptCard from './PromptCard'
 import { revalidatePath } from 'next/cache'
-//export const dynamic = 'force-dynamic';
+import Loading from './Loading'
+
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
     <div className='mt-16 prompt_layout'>
@@ -23,8 +24,7 @@ const Feed = () => {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [searchTimeout, setSearchTimeout] = useState(null);
-
-
+  const [isLoading, setIsLoading] = useState(true)
   const filterPrompts = (searchTextToFilter) => {
     const regex = new RegExp(searchTextToFilter, "i");
 
@@ -48,14 +48,25 @@ const Feed = () => {
   }
   useEffect(() => {
     const fetchPosts = async () => {
+      setIsLoading(true);
+      try{
       const response = await fetch('/api/prompt', {revalidate: 1})
       const data = await response.json()
       setPosts(data)
+      }
+      catch(error){
+        console.error("Error fetching feed data: ", error);
+      }
+      finally{
+        setIsLoading(false);
+      }
       //setFilteredPosts(data)
     }
     fetchPosts()
   }, [])
-
+if(isLoading){
+  return <Loading/>
+}
   return (
     <section className='feed'>
       <form className="relative w-full flex-center ">

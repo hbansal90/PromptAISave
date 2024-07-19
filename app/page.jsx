@@ -12,7 +12,7 @@ const Home = () => {
         PromptAISave is your tool for saving ⬇️, discovering 🤔, and sharing 📲 creative prompts ✍️ to generate enhanced responses from your favorite LLM model 🤖.
       </p>
       <Feed/>
-      <h2 className="text-center mb-3 font-medium  mt-10 font-mono">Made with 💖 by 
+      <h2 className="text-center mb-3 font-medium  mt-10 font-mono position:fixed inset-x-0 bottom-0 h-16">Made with 💖 by 
       <a 
         href="https://github.com/hbansal90" 
         target="_blank"
