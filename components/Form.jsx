@@ -1,14 +1,23 @@
-import Link from "next/link"
+import Link from "next/link";
+import { ToastContainer, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-
-const Form = (
-  { type,
-    post,
-    setPost,
-    submitting,
-    handleSubmit }) => {
+const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
   return (
     <section className="w-full max-w-full flex-start flex-col">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+      />
       <h1 className="head_text text-left">
         <span className="blue_gradient">{type} Post ✏️</span>
       </h1>
@@ -23,40 +32,39 @@ const Form = (
           <span className="font-satoshi font-semibold text-base text-gray-700"> Your AI Prompt</span>
           <textarea
             value={post.prompt}
-            onChange={(e)=> setPost({...post, prompt: e.target.value})}
+            onChange={(e) => setPost({ ...post, prompt: e.target.value })}
             placeholder="Write your prompt here...." required
             className="form_textarea"
           />
         </label>
         <label>
-          <span className="font-satoshi font-semibold text-base text-gray-700"> Tag {` `} <span className="font-normal"> ( #product, #webDevelopment, #idea, etc. )</span>
+          <span className="font-satoshi font-semibold text-base text-gray-700"> Tag <span className="font-normal"> ( #product, #webDevelopment, #idea, etc. )</span>
           </span>
           <input
             value={post.tag}
-            onChange={(e)=> setPost({...post, tag: e.target.value})}
-            type ='text'
+            onChange={(e) => setPost({ ...post, tag: e.target.value })}
+            type='text'
             placeholder="Tag " required
             className="form_input"
           />
         </label>
         <div className="flex-end mx-3 mb-5 gap-4">
-        <Link 
-        href="/" 
-        className="text-gray-500 text-sm"
-        >Cancel
-        </Link>
+          <Link
+            href="/"
+            className="text-gray-500 text-sm"
+          >Cancel
+          </Link>
 
-
-        <button 
-        type="submit" 
-        disabled={submitting} 
-        className="px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white">
-          {submitting? `${type}...`:type}
-        </button>
+          <button
+            type="submit"
+            disabled={submitting}
+            className="px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white">
+            {submitting ? `${type}...` : type}
+          </button>
         </div>
       </form>
     </section>
-  )
-}
+  );
+};
 
-export default Form
+export default Form;

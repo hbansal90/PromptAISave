@@ -137,6 +137,35 @@
 .form_input {
   @apply w-full flex rounded-lg mt-2 p-3 text-sm text-gray-500 outline-0;
 }
+.dark-shadow {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.border-primary {
+  border: 2px solid #ff7f50; /* Orange border */
+}
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.form_textarea {
+  font-weight: bold; /* Bolder font */
+  font-size: 1.125rem; /* Bigger font size (18px) */
+}
+
+.animated-text {
+  white-space: pre-wrap; /* Preserve whitespace */
+  overflow-wrap: break-word; /* Break long words */
+}
+
+.font-satoshi {
+  font-family: 'Satoshi', sans-serif; /* Use a more readable font */
+}
+
 
 /* Nav Component */
 .logo_text {

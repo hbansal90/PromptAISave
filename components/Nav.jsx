@@ -7,7 +7,7 @@ import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 
 const Nav = () => {
     //const isUserLoggedIn = true;
-    const {data: session} = useSession();
+    const { data: session } = useSession();
 
     const [providers, setProviders] = useState(null);
     const [toggleDropDown, setToggleDropDown] = useState(false)
@@ -31,16 +31,18 @@ const Nav = () => {
                 />
                 <p className='logo_text'>PromptAISave</p>
             </Link>
-            
+
             {/* Desktop Navigation */}
             <div className='sm:flex hidden'>
                 {session?.user ?
                     (<div className='flex gap-3 md:gap-5'>
-                        <Link href="/create-prompt" className="black_btn">Create Post</Link>
-                        <button type='button' onClick={signOut} className="outline_btn">
+                        <Link href="/create-prompt" className="black_btn whitespace-normal">Create  Prompt</Link>
+                        <Link href="/generate-response" className="black_btn whitespace-normal">Generate AI Response</Link>
+                        <button type='button' onClick={signOut} className="outline_btn whitespace-normal">
                             Sign Out
                         </button>
-                        <Link href= '/profile'>
+
+                        <Link href='/profile'>
                             {/* The Real User Profile Pic */}
                             <Image
                                 src={session?.user.image}
@@ -93,6 +95,7 @@ const Nav = () => {
                             >
                                 Create prompt
                             </Link>
+                            <Link href="/generate-response" className="black_btn whitespace-normal">Generate AI Response</Link>
                             <button
                                 type="button"
                                 onClick={() => {
